@@ -4,9 +4,16 @@ get '/login' do
 end
 
 
+get '/users/:id' do
+  @user = User.find(params[:id])
+
+
+  erb :'users/show'
+end
+
 # Create Users & Authenticate Log In
 post '/users' do
-  @user = User.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], username: params[:username], password: params[:password])
+  @user = User.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], username: params[:username], password: params[:password], about_me: params[:about])
   if @user.save
     session[:user_id] = @user.id
     redirect "/"
@@ -23,18 +30,18 @@ post '/sessions' do
       session[:user_id] = new_user.id
       redirect "/"
     else
-      @error = "Wrong Password"
+      flash[:notice] = "Wrong Password"
       erb :'sessions/new'
     end
   else
-    @error = "No such user exists"
+    flash[:notice] = "No such user exists"
     erb :'sessions/new'
   end
 end
 
 
 # Log Out
-delete '/users/logout' do
+delete '/logout' do
   session.clear
   redirect '/?logout_success'
 end

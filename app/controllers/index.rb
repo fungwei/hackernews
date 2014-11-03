@@ -1,7 +1,7 @@
 # Index Page - Show All
 get '/' do
-  # @posts = Post.all
-  # @posts = Post.order("posts.created_at desc")
+  @posts = Post.all
+  @posts = Post.order("posts.created_at desc")
 
-  erb :index
+  erb :'posts/index'
 end

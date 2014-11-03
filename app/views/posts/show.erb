@@ -1,0 +1,11 @@
+<h1><%= @post.title %></h1>
+<h4>By: <%= @post.user.username %></h4>
+<p><%= @post.content %></p>
+
+<% if(@post.user.id == session[:user_id]) %>
+  <form action="/posts" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="id" value= <%= @post.id%> >
+    <button class="btn btn-default" value="submit">Delete</button>
+  </form>
+<% end %>
