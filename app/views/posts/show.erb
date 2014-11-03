@@ -9,3 +9,20 @@
     <button class="btn btn-default" value="submit">Delete</button>
   </form>
 <% end %>
+
+<form id="new" role="form" action="/comments" method="post">
+ <div class="form-group">
+    <label for="inputComment">Comment</label>
+    <textarea name="comment" class="form-control" id="inputComment" placeholder="Enter comment" rows="2 "></textarea>
+  </div>
+  <input type="hidden" name="post_id" value= <%= @post.id%> >
+  <button value="submit" class="btn btn-default">Add Comment</button>
+</form>
+
+<h4>Comments</h4>
+<% @post.comments.each do |comment| %>
+  <p><%= comment.content %></p>
+  <p>Posted by: <%= comment.user.username %></p>
+  <p>Created at: <%= comment.created_at %></p>
+  <hr>
+<% end %>

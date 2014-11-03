@@ -1,7 +1,8 @@
 # Index Page - Show All
 get '/' do
+  # @posts = Post.all
   @posts = Post.all
-  @posts = Post.order("posts.created_at desc")
+  # @posts = PostVote.all.posts.order(  count :desc)
 
   erb :'posts/index'
 end
