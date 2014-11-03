@@ -1,27 +1,34 @@
 # Create Users & Authenticate Log In Page
-get '/sessions/new' do
+get '/login' do
   erb :'sessions/new'
 end
 
-# Create Users & Authenticate Log In
-post '/sessions/new' do
-  if params[:submit] == "create"
-    User.create(username: params[:username], password: params[:password])
-    redirect "/?notice=success"
-  else
-    # byebug
-    if User.valid?(params[:username])
-      new_user = User.find_by(username: params[:username])
 
-      if new_user.authenticate(params[:password])
-        session[:user_id] = new_user.id
-        redirect "/posts"
-      else
-        redirect "/?notice=wrong_password"
-      end
+# Create Users & Authenticate Log In
+post '/users' do
+  @user = User.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], username: params[:username], password: params[:password])
+  if @user.save
+    session[:user_id] = @user.id
+    redirect "/"
+  else
+    erb :'sessions/new'
+  end
+end
+
+post '/sessions' do
+  if User.valid?(params[:username])
+    new_user = User.find_by(username: params[:username])
+
+    if new_user.authenticate(params[:password])
+      session[:user_id] = new_user.id
+      redirect "/"
     else
-      redirect "/?notice=no_account"
+      @error = "Wrong Password"
+      erb :'sessions/new'
     end
+  else
+    @error = "No such user exists"
+    erb :'sessions/new'
   end
 end
 

@@ -1,8 +1,14 @@
-<h1>LOG IN</h1>
-<form action='/users' method='post' role="form">
+<%if @user.try(:errors) %>
+  <h3 style="color: red"><%= @user.errors.full_messages %></h3>
+<% end %>
+<%if @error %>
+  <h3 style="color: red"><%= @error %></h3>
+<% end %>
+<h2>LOG IN</h2>
+<form action='/sessions' method='post' role="form">
   <div class="form-group">
     <label for="inputUsername">Username</label>
-    <input name="username" type="username" class="form-control" id="inputUsername" placeholder="Enter username">
+    <input name="username" type="username" class="form-control" id="inputUsername" placeholder="Enter username" size="20">
   </div>
   <div class="form-group">
     <label for="inputPassword">Password</label>
@@ -15,19 +21,19 @@
 <hr>
 
 <p>
-<h1>Create Account</h1>
+<h2>Create Account</h2>
 <form action='/users' method='post' role="form">
   <div class="form-group">
     <label for="inputFirstName">First Name</label>
-    <input name="username" type="username" class="form-control" id="inputUsername" placeholder="Enter username">
+    <input name="first_name" type="first_name" class="form-control" id="inputFirstName" placeholder="Enter first name">
   </div>
   <div class="form-group">
     <label for="inputLastName">Last Name</label>
-    <input name="username" type="username" class="form-control" id="inputUsername" placeholder="Enter username">
+    <input name="last_name" type="last_name" class="form-control" id="inputLastName" placeholder="Enter last name">
   </div>
   <div class="form-group">
     <label for="inputEmail">Email</label>
-    <input name="username" type="username" class="form-control" id="inputUsername" placeholder="Enter username">
+    <input name="email" type="email" class="form-control" id="inputEmail" placeholder="Enter email">
   </div>
   <div class="form-group">
     <label for="inputUsername">Username</label>

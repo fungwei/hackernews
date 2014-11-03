@@ -6,15 +6,13 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true, presence: true
   validates :password, presence: true
 
+  attr_accessor :error
+
   def self.valid?(username)
     User.exists?(username: username)
   end
 
   def authenticate(attempted_password)
-    if self.password == attempted_password
-      true
-    else
-      false
-    end
+    self.password == attempted_password
   end
 end

@@ -1,4 +1,7 @@
+# Index Page - Show All
 get '/' do
-  # Look in app/views/index.erb
+  # @posts = Post.all
+  # @posts = Post.order("posts.created_at desc")
+
   erb :index
 end
